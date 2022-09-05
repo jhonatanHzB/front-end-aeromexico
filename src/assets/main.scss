@@ -1,0 +1,15 @@
+@import './global/index';
+
+:root {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.4),
+    rgba(0, 0, 0, 0.9)), url('background.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-color: var(--body-color);
+  min-height: 100vh;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}

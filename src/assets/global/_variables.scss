@@ -1,0 +1,50 @@
+@import './breakpoints';
+
+:root {
+  --header-height: 3.5rem;
+
+  /*========== Colors ==========*/
+  --first-color: rgb(107, 99, 181);
+  --first-color-alt: rgba(107, 99, 181, .6);;
+  --title-color: rgb(8, 30, 48);
+  --text-color: rgb(8, 30, 48);
+  --text-color-light: rgb(255, 255, 255);
+  --border-color: rgb(107, 99, 181);
+  --body-color: rgb(36, 36, 36);
+  --body-color-alt: rgba(0, 0, 0, .6);
+  --container-color: rgb(255, 255, 255);
+
+  /*========== Font and typography ==========*/
+  /*.5rem = 8px | 1rem = 16px ...*/
+  --body-font: 'Open Sans', sans-serif;
+  --biggest-font-size: 2.25rem;
+  --h1-font-size: 1.5rem;
+  --h2-font-size: 1.25rem;
+  --h3-font-size: 1rem;
+  --normal-font-size: 0.938rem;
+  --small-font-size: .813rem;
+  --smaller-font-size: .75rem;
+
+  /*========== Font weight ==========*/
+  --font-light: 300;
+  --font-medium: 400;
+  --font-semi-bold: 600;
+
+  /*========== z index ==========*/
+  --z-tooltip: 10;
+  --z-fixed: 100;
+}
+
+/* Responsive typography */
+
+@include breakpoint-min(desktop) {
+  :root {
+    --biggest-font-size: 4rem;
+    --h1-font-size: 2.25rem;
+    --h2-font-size: 1.5rem;
+    --h3-font-size: 1.25rem;
+    --normal-font-size: 1.0625rem;
+    --small-font-size: .875rem;
+    --smaller-font-size: .813rem;
+  }
+}

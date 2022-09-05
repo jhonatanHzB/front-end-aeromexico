@@ -1,0 +1,38 @@
+@mixin buttons-states {
+  border: 3px solid var(--first-color);
+  &:hover {
+    background-color: var(--first-color-alt);
+  }
+  &:active {
+    background-color: var(--first-color);
+  }
+}
+
+.button {
+  border: var(--bs-btn-border-width) solid var(--bs-btn-border-color);
+  color: var(--text-color-light);
+  display: inline-block;
+  font-size: var(--normal-font-size);
+  font-weight: var(--font-semi-bold);
+  margin: 0.25rem 0.125rem;
+  padding: 1.2rem 1.5rem;
+  text-align: center;
+  text-decoration: none;
+  transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+  min-width: 288px;
+
+  &__primary {
+    background-color: var(--first-color);
+    @include buttons-states;
+  }
+
+  &__secondary {
+    background-color: var(--first-color-alt);
+    @include buttons-states;
+  }
+
+  &__dark {
+    background-color: var(--body-color-alt);
+    @include buttons-states;
+  }
+}

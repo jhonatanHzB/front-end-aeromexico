@@ -1,6 +1,8 @@
 import './App.scss'
-import Button from './components/Button/Button'
+import Button from './components/Button'
+import Card from './components/Card'
 import Logo from './components/Logo'
+import Main from './components/Main'
 
 function App() {
   return (
@@ -11,6 +13,24 @@ function App() {
         <Button variant='dark'>ESTUDIANTES</Button>
         <Button variant='dark'>STAFF</Button>
       </div>
+      <div className="app__characters">
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+      </div>
+      <Main />
     </div>
   )
 }

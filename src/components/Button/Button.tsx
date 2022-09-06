@@ -14,6 +14,7 @@ const Button: React.FC<ButtonProps> = ({
 }) => {
   return (
     <button
+      type='button'
       className={`button button__${variant}`}
       onClick={(event) => handleClick(event)}
       {...rest}

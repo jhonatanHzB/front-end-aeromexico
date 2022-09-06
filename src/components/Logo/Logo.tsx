@@ -1,9 +1,9 @@
+import './Logo.scss'
+
 const Logo = () => {
   return (
     <>
       <svg
-        width='194'
-        height='66'
         viewBox='0 0 194 66'
         fill='none'
         xmlns='http://www.w3.org/2000/svg'

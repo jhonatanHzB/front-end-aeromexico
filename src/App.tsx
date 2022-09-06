@@ -7,7 +7,7 @@ import Modal from './components/Modal'
 import './App.scss'
 
 function App() {
-  const [modal, setModal] = useState(true)
+  const [modal, setModal] = useState(false)
   const handleModal = () => {
     setModal(!modal)
     !modal && window.scrollTo(0, 0)
@@ -15,7 +15,7 @@ function App() {
 
   return (
     <>
-      <div className={`app ${modal && 'modal__active'}`}>
+      <div className='app'>
         <Logo />
         <h1>Selecciona tu filtro</h1>
         <div className="app__filters">

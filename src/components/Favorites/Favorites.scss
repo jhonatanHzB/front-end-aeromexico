@@ -1,3 +1,5 @@
+@import '../../assets/styles/global/breakpoints';
+
 .list {
   background-color: var(--first-color);
   bottom: -1px;
@@ -17,11 +19,11 @@
 
   &__element {
     align-items: center;
-    border-bottom: 1px solid var(--body-color-alt);
+    border-bottom: 1px solid #403b6d;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    min-height: 70px;
+    height: 70px;
     padding: 1rem auto;
 
     &:last-child {
@@ -44,6 +46,45 @@
     svg {
       height: 24px;
       width: 24px;
+    }
+  }
+}
+
+@include breakpoint-min(tablet) {
+  .list {
+    bottom: auto;
+    padding: 2.3rem 1.2rem .5rem;
+    top: 0;
+    right: 1.5rem;
+    width: 15.9375rem;
+    border-radius: 0 0 8px 8px;
+
+    &__element {
+      height: 58px;
+
+      img {
+        height: 43px;
+        width: 43px;
+      }
+    }
+  }
+}
+
+@include breakpoint-min(desktop) {
+  .list {
+    right: 10%;
+    width: 17.5625rem;
+
+    &__element {
+      span {
+        font-size: calc(var(--h3-font-size) - 2px);
+        font-weight: var(--font-medium);
+      }
+
+      img {
+        height: 38px;
+        width: 38px;
+      }
     }
   }
 }

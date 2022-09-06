@@ -8,6 +8,10 @@
   overflow: hidden;
   padding-top: 3rem;
 
+  &.modal__active {
+    max-height: 100vh;
+  }
+
   h1 {
     font-size: var(--h1-font-size);
     margin: 1rem auto 1.8rem;

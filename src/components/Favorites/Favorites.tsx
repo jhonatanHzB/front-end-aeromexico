@@ -1,11 +1,12 @@
-import { Character } from '../../types/Character';
-import './List.scss'
+import { FC } from 'react'
+import { Character } from '../../types/Character'
+import './Favorites.scss'
 
-type ListProps = {
+type FavoritesProps = {
   active: boolean
 }
 
-const List: React.FC<Partial<Character & ListProps>> = ({ active }) => {
+const Favorites: FC<Partial<Character & FavoritesProps>> = ({ active }) => {
   return (
     <div className={`list ${active && 'active'}`}>
       <div className="list__element">
@@ -49,7 +50,7 @@ const List: React.FC<Partial<Character & ListProps>> = ({ active }) => {
         </svg>
       </div>
     </div>
-  );
+  )
 }
 
-export default List;
+export default Favorites

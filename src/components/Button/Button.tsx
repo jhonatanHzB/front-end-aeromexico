@@ -1,21 +1,22 @@
-import React from 'react'
+import { FC } from 'react'
 import './Button.scss'
 
 type ButtonProps = {
   handleClick?: (event: React.MouseEvent<HTMLButtonElement>) => void
-  variant: 'primary' | 'secondary' | 'dark'
+  variant: 'primary' | 'secondary' | 'dark',
+  size?: 'block'
 } & React.ComponentProps<'button'>
 
-const Button: React.FC<ButtonProps> = ({
+const Button: FC<ButtonProps> = ({
   children,
   variant,
+  size = '',
   handleClick = () => {},
   ...rest
 }) => {
   return (
     <button
-      type='button'
-      className={`button button__${variant}`}
+      className={`button button__${variant} ${size}`}
       onClick={(event) => handleClick(event)}
       {...rest}
     >

@@ -10,6 +10,7 @@
 
 .button {
   border: var(--bs-btn-border-width) solid var(--bs-btn-border-color);
+  border-radius: 4px;
   color: var(--text-color-light);
   display: inline-block;
   font-size: var(--normal-font-size);
@@ -34,5 +35,9 @@
   &__dark {
     background-color: var(--body-color-alt);
     @include buttons-states;
+  }
+
+  &.block {
+    padding: 1rem .5rem;
   }
 }

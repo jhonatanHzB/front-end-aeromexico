@@ -1,4 +1,6 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { fetchCharacters } from './features/characters/characterSlice'
+import { useAppDispatch, useAppSelector } from './app/hooks'
 import Button from './components/Button'
 import Card from './components/Card'
 import Logo from './components/Logo'
@@ -8,10 +10,17 @@ import './App.scss'
 
 function App() {
   const [modal, setModal] = useState(false)
+  const character = useAppSelector(state => state.character)
+  const dispatch = useAppDispatch()
+
   const handleModal = () => {
     setModal(!modal)
     !modal && window.scrollTo(0, 0)
   }
+
+  useEffect(() => {
+    dispatch(fetchCharacters())
+  }, []);
 
   return (
     <>
@@ -23,21 +32,21 @@ function App() {
           <Button type='button' variant='dark'>STAFF</Button>
         </div>
         <div className="app__characters">
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
+          {
+            character.loading && <div>Loading...</div>
+          }
+          {
+            !character.loading && character.error
+              ? <div>Error: {character.error}</div>
+              : null
+          }
+          {
+            !character.loading && character.characters.length
+              ? (character.characters.map(character => (
+                <Card key={character.name} character={character} />
+              )))
+              : null
+          }
         </div>
         <Main toggleModal={handleModal} />
       </div>

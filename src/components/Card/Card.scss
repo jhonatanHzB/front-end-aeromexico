@@ -82,6 +82,12 @@
 
       &__description {
         display: none;
+        p {
+          text-transform: capitalize;
+          span {
+            text-transform: none;
+          }
+        }
       }
     }
   }
@@ -90,8 +96,8 @@
 @include breakpoint-min(tablet) {
   .card {
     flex-direction: row;
+    min-height: 10.8625rem;
     width: 21.6875rem;
-    height: 10.8625rem;
 
     &__media {
       border-radius: 5px 0 0 5px;
@@ -154,10 +160,10 @@
 }
 
 @include breakpoint-min(desktop) {
- .card {
-  width: 32.1875rem;
-  height: 16.5625rem;
-  border-radius: 16px;
+  .card {
+    border-radius: 16px;
+    min-height: 16.5625rem;
+    width: 32.1875rem;
 
   &__media {
     border-radius: 16px 0 0 16px;

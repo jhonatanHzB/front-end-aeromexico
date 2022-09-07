@@ -1,8 +1,11 @@
 import { createRef, FC, FormEvent, useRef } from 'react'
 import { NewCharacter } from '../../types/NewCharacter'
+import { fetchCharacters } from '../../features/characters/characterSlice'
+import { useAppDispatch } from '../../app/hooks'
 import useForm from '../../hooks/useForm'
 import Button from '../Button'
 import Input from '../Input'
+import axios from 'axios'
 import './Modal.scss'
 
 type ModalProps = {
@@ -11,45 +14,77 @@ type ModalProps = {
 }
 
 const Modal: FC<ModalProps> = ({ showModal, toggleModal }) => {
+  const reader = new FileReader()
   const fileRef = createRef<HTMLInputElement>()
   const spanRef = useRef<HTMLSpanElement>(null!)
-  const {form, handleChanges, cleanForm} = useForm<NewCharacter>({
+  const dispatch = useAppDispatch()
+  const { form, handleChanges, cleanForm } = useForm<NewCharacter>({
     name: '',
     dateOfBirth: '',
     eyeColour: '',
     hairColour: '',
     gender: 'female',
     position: 'hogwartsStudent',
-    photo: ''
+    image: ''
   })
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    console.log('Submit form ', form)
+  const dummyValidateForm = (): boolean => {
+    return form.name !== '' && form.dateOfBirth !== '' && form.eyeColour !== '' && form.hairColour !== '';
+  }
+
+  const handleSubmit = (event: FormEvent) => {
     event.preventDefault()
-    cleanForm()
+    const target = event.target as HTMLFormElement
+
+    if (dummyValidateForm()) {
+      const data = Object.fromEntries(new FormData(target))
+      const randomId = Math.floor(Math.random() * (1000 + 1))
+      const image = reader.result as string
+
+      axios
+        .post('http://localhost:3000/characters', {
+          ...data,
+          image,
+          id: randomId
+        })
+        .then((response) => {
+          console.log(response)
+          spanRef.current.textContent = 'No se eligió ningún archivo'
+          dispatch(fetchCharacters())
+          cleanForm()
+          toggleModal()
+        })
+    } else {
+      alert('Llena todos los datos')
+    }
+
   }
 
   const handlePhoto = () => {
-    const file = fileRef.current?.files?.item(0)
-    spanRef.current.textContent = file?.name || 'Imagen Adjuntada'
+    try {
+      const file = fileRef.current?.files?.item(0) as File
+      reader.readAsDataURL(file)
+      spanRef.current.textContent = file?.name || 'Imagen Adjuntada'
+    } catch (e) {
+      spanRef.current.textContent = 'No se eligió ningún archivo'
+    }
   }
 
   return (
     <div className={`modal ${showModal && 'active'}`}>
       <div className='modal__content'>
-        <div className="modal__header">
+        <div className='modal__header'>
           <h3>Agregar un personaje</h3>
-          <svg viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg" onClick={toggleModal}>
-            <rect width="34" height="34" fill="white"/>
-            <circle cx="17" cy="17" r="12.75" stroke="#333333"/>
-            <path d="M12.75 21.2495L21.25 12.7495" stroke="#333333"/>
-            <path d="M21.25 21.25L12.75 12.75" stroke="#333333"/>
-          </svg>
+          <img src='./src/assets/img/close.svg' onClick={toggleModal} alt='Cerrar' />
         </div>
-        <div className="modal__body">
-          <form className="modal__body__form form" autoComplete='off' onSubmit={handleSubmit}>
+        <div className='modal__body'>
+          <form
+            className='modal__body__form form'
+            autoComplete='off'
+            onSubmit={handleSubmit}
+          >
             <div className='form__input'>
-              <label htmlFor="name">NOMBRE</label>
+              <label htmlFor='name'>NOMBRE</label>
               <Input
                 id='name'
                 name='name'
@@ -59,7 +94,7 @@ const Modal: FC<ModalProps> = ({ showModal, toggleModal }) => {
               />
             </div>
             <div className='form__input'>
-              <label htmlFor="dateOfBirth">CUMPLEAÑOS</label>
+              <label htmlFor='dateOfBirth'>CUMPLEAÑOS</label>
               <Input
                 id='dateOfBirth'
                 name='dateOfBirth'
@@ -69,7 +104,7 @@ const Modal: FC<ModalProps> = ({ showModal, toggleModal }) => {
               />
             </div>
             <div className='form__input'>
-              <label htmlFor="eyeColour">COLOR DE OJOS</label>
+              <label htmlFor='eyeColour'>COLOR DE OJOS</label>
               <Input
                 id='eyeColour'
                 name='eyeColour'
@@ -79,7 +114,7 @@ const Modal: FC<ModalProps> = ({ showModal, toggleModal }) => {
               />
             </div>
             <div className='form__input'>
-              <label htmlFor="hairColour">COLOR DE PELO</label>
+              <label htmlFor='hairColour'>COLOR DE PELO</label>
               <Input
                 id='hairColour'
                 name='hairColour'
@@ -90,7 +125,7 @@ const Modal: FC<ModalProps> = ({ showModal, toggleModal }) => {
             </div>
             <div className='form__radio'>
               <span>GÉNERO</span>
-              <div className="form__options">
+              <div className='form__options'>
                 <div>
                   <Input
                     checked={form.gender === 'female'}
@@ -100,7 +135,9 @@ const Modal: FC<ModalProps> = ({ showModal, toggleModal }) => {
                     type='radio'
                     value='female'
                   />
-                  <label className='radio__label' htmlFor="female">Mujer</label>
+                  <label className='radio__label' htmlFor='female'>
+                    Mujer
+                  </label>
                 </div>
                 <div>
                   <Input
@@ -111,13 +148,15 @@ const Modal: FC<ModalProps> = ({ showModal, toggleModal }) => {
                     type='radio'
                     value='male'
                   />
-                  <label className='radio__label' htmlFor="male">Hombre</label>
+                  <label className='radio__label' htmlFor='male'>
+                    Hombre
+                  </label>
                 </div>
               </div>
             </div>
             <div className='form__radio'>
               <span>POSICIÓN</span>
-              <div className="form__options">
+              <div className='form__options'>
                 <div>
                   <Input
                     id='student'
@@ -127,7 +166,9 @@ const Modal: FC<ModalProps> = ({ showModal, toggleModal }) => {
                     type='radio'
                     value='hogwartsStudent'
                   />
-                  <label className='radio__label' htmlFor="student">Estudiante</label>
+                  <label className='radio__label' htmlFor='student'>
+                    Estudiante
+                  </label>
                 </div>
                 <div>
                   <Input
@@ -138,19 +179,21 @@ const Modal: FC<ModalProps> = ({ showModal, toggleModal }) => {
                     type='radio'
                     value='hogwartsStaff'
                   />
-                  <label className='radio__label' htmlFor="staff">Staff</label>
+                  <label className='radio__label' htmlFor='staff'>
+                    Staff
+                  </label>
                 </div>
               </div>
             </div>
 
-            <div className="form__file">
-              <label htmlFor="photo">
-                <span>FOTOGRAFIA</span>
-                <img src="./src/assets/img/post.svg" alt="Elegir imagen" />
+            <div className='form__file'>
+              <label htmlFor='image'>
+                <span>FOTOGRAFIÁ</span>
+                <img src='./src/assets/img/post.svg' alt='Elegir imagen' />
                 <Input
                   accept='image/png, image/jpg, image/jpeg'
-                  id='photo'
-                  name='photo'
+                  id='image'
+                  name='image'
                   onChange={() => handlePhoto()}
                   ref={fileRef}
                   type='file'

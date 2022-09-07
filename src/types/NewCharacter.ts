@@ -5,5 +5,5 @@ export type NewCharacter = {
   hairColour: string
   gender: 'male' | 'female'
   position: 'hogwartsStudent' | 'hogwartsStaff'
-  photo: string
+  image: string
 }

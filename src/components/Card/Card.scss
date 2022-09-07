@@ -44,7 +44,6 @@
 
   &__content {
     display: flex;
-    flex-direction: column;
     flex-direction: column-reverse;
     padding: 0 0.6rem 0.9rem;
 
@@ -68,6 +67,10 @@
       svg {
         height: 24px;
         width: 20px;
+
+        &.active {
+          fill: #333
+        }
       }
     }
 

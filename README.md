@@ -55,6 +55,8 @@ npm run server
 
 *También me falto la parte de filtros que es lo mas sencillo pero me enfoque mas en el formulario y agregar a favoritos.*
 
+*Añadir pruebas unitarias, e cierto que TypeScript me permite evitar algunos errores y encontrarlos en la etapa de desarrollo pero es importante siempre testear nuestros componentes, para este caso me falto añadir los test, estos los trabajaría con **Jest**.*
+
 **¿Bugs encontrados y solución?**
 
 *Al tratar de implementar la funcionalidad de añadir a favoritos desde el icono del marcador, intente que si lo vuelven a presionar y el personaje ya esta en la lista de favoritos lo que haría seria lo contraria que es eliminarse de favoritos y quitar el marcador, el problema fue que no lograba sincronizar bien los cambios de **Redux** con el **localStorage**.*
